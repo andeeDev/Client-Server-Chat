@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>andee</artifactId>
+        <groupId>andee</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>client</artifactId>
+    <packaging>jar</packaging>
+<!---->
+    <build>
+        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+            <plugins>
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.1.0</version>
+                    <executions>
+                        <execution>
+                            <id>copy-resources</id>
+                            <!-- here the phase you need -->
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>${basedir}/target/classes/client/views</outputDirectory>
+                                <resources>
+                                    <resource>
+                                        <directory>src/main/java/client/views</directory>
+                                        <filtering>false</filtering>
+                                    </resource>
+                                </resources>
+
+                            </configuration>
+                        </execution>
+
+                    </executions>
+
+                </plugin>
+
+                <!--<plugin>-->
+                <!--<artifactId>maven-resources-plugin</artifactId>-->
+                <!--<version>3.1.0</version>-->
+                <!--<executions>-->
+                <!--<execution>-->
+                <!--<id>copy-resources</id>-->
+                <!--&lt;!&ndash; here the phase you need &ndash;&gt;-->
+                <!--<phase>validate</phase>-->
+                <!--<goals>-->
+                <!--<goal>copy-resources</goal>-->
+                <!--</goals>-->
+                <!--<configuration>-->
+                <!--<outputDirectory>${basedir}/target/classes/messenger2/res</outputDirectory>-->
+                <!--<resources>-->
+                <!--<resource>-->
+                <!--<directory>src/main/java/messenger2/res</directory>-->
+                <!--<filtering>true</filtering>-->
+                <!--</resource>-->
+                <!--</resources>-->
+                <!--</configuration>-->
+                <!--</execution>-->
+                <!--</executions>-->
+                <!--</plugin>-->
+
+                <plugin>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>single</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addClasspath>true</addClasspath>
+                                <mainClass>client.App</mainClass>
+                            </manifest>
+                        </archive>
+                        <descriptorRefs>
+                            <descriptorRef>jar-with-dependencies</descriptorRef>
+                        </descriptorRefs>
+                    </configuration>
+                </plugin>
+
+<!--                <plugin>-->
+<!--                    <artifactId>maven-jar-plugin</artifactId>-->
+<!--                    <configuration>-->
+<!--                        <archive>-->
+<!--                            <addMavenDescriptor>false</addMavenDescriptor>-->
+<!--                            <compress>true</compress>-->
+<!--                            <manifest>-->
+<!--                                <mainClass>client.App</mainClass>-->
+<!--                                <addClasspath>true</addClasspath>-->
+<!--                                <classpathPrefix>../views/</classpathPrefix>-->
+<!--                            </manifest>-->
+<!--                        </archive>-->
+<!--                    </configuration>-->
+<!--                </plugin>-->
+
+            </plugins>
+        </pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+
+        <resources>
+            <resource>
+                <targetPath>client/res</targetPath>
+                <directory>src/main/java/client/res</directory>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <targetPath>${project.build.directory}/classes</targetPath>
+            </resource>
+        </resources>
+
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                    <excludes>
+                        <exclude>org.hamcrest</exclude>
+
+                    </excludes>
+                </configuration>
+            </plugin>
+
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>3.0.0</version>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>shade</goal>
+                    </goals>
+                    <configuration>
+                        <transformers>
+                            <transformer
+                                    implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <mainClass>client.App</mainClass>
+                            </transformer>
+                        </transformers>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+
+
+
+    </build>
+<dependencies>
+
+
+    <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-api</artifactId>
+        <version>2.11.2</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>2.11.2</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.reflections</groupId>
+        <artifactId>reflections</artifactId>
+        <version>0.9.11</version>
+    </dependency>
+    <dependency>
+        <groupId>io.github.classgraph</groupId>
+        <artifactId>classgraph</artifactId>
+        <version>LATEST</version>
+    </dependency>
+
+
+
+    <!--    </dependency>-->
+
+    <!-- https://mvnrepository.com/artifact/com.github.cliftonlabs/json-simple -->
+    <!-- https://mvnrepository.com/artifact/com.github.cliftonlabs/json-simple -->
+    <!-- https://mvnrepository.com/artifact/com.github.cliftonlabs/json-simple -->
+    <!-- https://mvnrepository.com/artifact/com.github.cliftonlabs/json-simple -->
+<!--    <dependency>-->
+<!--        <groupId>com.github.cliftonlabs</groupId>-->
+<!--        <artifactId>json-simple</artifactId>-->
+<!--        <version>2.1.1</version>-->
+<!--    </dependency>-->
+
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>LATEST</version>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+        <version>LATEST</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.9.8</version>
+    </dependency>
+
+
+
+    <!--    <dependency>-->
+<!--        <groupId>org.openjfx</groupId>-->
+<!--        <artifactId>javafx-fxml</artifactId>-->
+<!--        <version>11.0.1</version>-->
+<!--    </dependency>-->
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-controls</artifactId>
+        <version>11</version>
+    </dependency>
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-fxml</artifactId>
+        <version>11</version>
+    </dependency>
+
+
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+
+
+    <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
+<!--    <dependency>-->
+<!--        <groupId>org.openjfx</groupId>-->
+<!--        <artifactId>javafx-controls</artifactId>-->
+<!--        <version>11.0.2</version>-->
+<!--    </dependency>-->
+
+
+<!--    <dependency>-->
+<!--        <groupId>org.openjfx</groupId>-->
+<!--        <artifactId>javafx-controls</artifactId>-->
+<!--        <version>11.0.2</version>-->
+<!--    </dependency>-->
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.openjfx/javafx &ndash;&gt;-->
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.openjfx/javafx-graphics &ndash;&gt;-->
+<!--    <dependency>-->
+<!--        <groupId>org.openjfx</groupId>-->
+<!--        <artifactId>javafx-graphics</artifactId>-->
+<!--        <version>11.0.2</version>-->
+<!--    </dependency>-->
+
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.openjfx/javafx-base &ndash;&gt;-->
+<!--    <dependency>-->
+<!--        <groupId>org.openjfx</groupId>-->
+<!--        <artifactId>javafx-base</artifactId>-->
+<!--        <version>11.0.2</version>-->
+<!--    </dependency>-->
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.openjfx/javafx-fxml &ndash;&gt;-->
+<!--    <dependency>-->
+<!--        <groupId>org.openjfx</groupId>-->
+<!--        <artifactId>javafx-fxml</artifactId>-->
+<!--        <version>11.0.2</version>-->
+<!--    </dependency>-->
+
+
+
+
+    <dependency>
+        <groupId>com.jfoenix</groupId>
+        <artifactId>jfoenix</artifactId>
+        <version>9.0.8</version>
+    </dependency>
+
+
+
+    <!--    <dependency>-->
+<!--        <groupId>com.jfoenix</groupId>-->
+<!--        <artifactId>jfoenix</artifactId>-->
+<!--        <version>8.0.8</version>-->
+<!--    </dependency>-->
+</dependencies>
+
+
+
+
+
+</project>
